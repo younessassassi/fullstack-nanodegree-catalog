@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "main/base.html" %}
 
 {% block title %}
 	Catalog -- Delete item
@@ -7,7 +7,7 @@
 {% block content %}
 	<section>
 		<h1 style="clear:both">Confirm Delete</h1>
-		{% include "item.html" %}
+		{% include "items/item.html" %}
 
 		<form action="" method="post">
 			<span style="color:red"> Are you sure you want to delete this item?</span>

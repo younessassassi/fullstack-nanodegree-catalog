@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "main/base.html" %}
 
 {% block title %}
     Catalog -- Welcome
@@ -14,7 +14,7 @@
             <h2>Latest Items</h2>
             {% if new_items.count() > 0  %}
                 {% with items=new_items %}
-                    {% include "item_list.html" %}
+                    {% include "items/item_list.html" %}
                 {% endwith %}
                 
             {% else %}

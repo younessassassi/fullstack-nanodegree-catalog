@@ -48,6 +48,7 @@ class Category(db.Model):
 	def __repr__(self):
 		return "<Category '{}'>".format(self.name)
 
+
 ''' Item class representing the Item table in the database '''
 class Item(db.Model):
 	id = db.Column(db.Integer, primary_key=True)

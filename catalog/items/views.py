@@ -18,7 +18,7 @@ def add():
         db.session.commit()
         flash("stored item '{}'".format(description))
         return redirect(url_for('main.index'))
-    return render_template('item_form.html', form=form, title="Add new item")
+    return render_template('items/item_form.html', form=form, title="Add new item")
 
 @items.route('/edit/<int:item_id>', methods=['GET', 'POST'])
 @login_required
@@ -32,7 +32,7 @@ def edit(item_id):
         db.session.commit()
         flash("Stored '{}'".format(item.description))
         return redirect(url_for('.user', username=current_user.username))
-    return render_template('item_form.html', form=form, title="Edit item")
+    return render_template('items/item_form.html', form=form, title="Edit item")
 
 @items.route('/delete/<int:item_id>', methods=['GET', 'POST'])
 @login_required
@@ -47,13 +47,13 @@ def delete(item_id):
         return redirect(url_for('.user', username=current_user.username))
     else:
         flash("Please confirm deleting the item.")
-    return render_template('confirm_delete.html', item=item, nolinks=True)
+    return render_template('items/confirm_delete.html', item=item, nolinks=True)
 
 
 @items.route('/user/<username>')
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
-    return render_template('user.html', user=user)
+    return render_template('items/user.html', user=user)
 
 # @items.route('/tag/<name>')
 # def tag(name):
