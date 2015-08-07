@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Catalog -- Welcome
+{% endblock %}
+
+{% block content %}
+    <article>
+        <header>
+            <h1>Welcome</h1>
+            <p>Catalog displays a list of available items under various categories.  Registered users can modify these items</p>
+        </header>
+        <section>
+            <h2>Latest Items</h2>
+            {% if new_items.count() > 0  %}
+                {% with items=new_items %}
+                    {% include "item_list.html" %}
+                {% endwith %}
+                
+            {% else %}
+                No items have been added yet
+            {% endif %}
+                
+        </section>
+    </article>
+{% endblock %}

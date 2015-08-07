@@ -1,0 +1,25 @@
+<div class="item">
+	<a class="header" href="{{ item.url }}">
+		<h3 class="name">
+			{{ item.name|truncate(50, killwordsTrue) }}
+		</h3>
+		<span class="description">
+			{{ item.description|truncate(50, killwords=True) }}
+		</span>
+	</a>
+	<div class="info">
+		
+		<br>
+
+		Added by <a href="{{ url_for('items.user', username=item.user.username) }}">
+			{{ item.user.name }}
+		</a>
+		{{ moment(item.date).fromNow() }}.
+		{% if current_user == item.user %}
+			<span class="edititems">
+				<a href="{{ url_for('items.edit', item_id=item.id) }}">edit</a>
+				<a href="{{ url_for('items.delete', item_id=item.id) }}">delete</a>
+			</span>
+		{% endif %}
+	</div>
+</div>

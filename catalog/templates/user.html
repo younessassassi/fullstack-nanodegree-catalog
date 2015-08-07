@@ -1,0 +1,24 @@
+{% extends "base.html" %} 
+
+{% block title %}
+Catalog -- Items for user {{ user.name }}
+{% endblock %}
+
+{% block content %}
+	<article>
+		<header>
+			<h1>Items for {{ user.name }}</h1>
+		</header>
+		<ul>
+			{% for item in user.items %}
+				<li>
+					<a href="{{ item.url }}">{{ item.description }}</a>
+					<span class="timestamp">Added on {{ moment(item.date).format('MMMM Do YYYY, h:mm:ss a') }}</span>
+					
+				</li>
+			{% else %}
+				<li>You have not added any items yet.</li>
+			{% endfor %}
+		</ul>
+	</article>
+{% endblock %}
