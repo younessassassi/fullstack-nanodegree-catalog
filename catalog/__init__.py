@@ -31,9 +31,13 @@ def create_app(config_name):
 	from .auth import auth as auth_blueprint
 	app.register_blueprint(auth_blueprint, url_prefix='/auth')
 
+	# register the categories blueprint to manage the categories
+	from .categories import categories as categories_blueprint
+	app.register_blueprint(categories_blueprint, url_prefix='/categories')
+
 	# register the items blueprint for add, edit, delete and view of items
-	from .items import items as bookmarks_blueprint
-	app.register_blueprint(bookmarks_blueprint, url_prefix='/items')
+	from .items import items as items_blueprint
+	app.register_blueprint(items_blueprint, url_prefix='/items')
 
 	# register the main blueprint for index page and error handling
 	from .main import main as main_blueprint

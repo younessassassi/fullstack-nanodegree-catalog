@@ -13,6 +13,7 @@ class User(db.Model, UserMixin):
 	name = db.Column(db.String(100) , nullable=False)
 	password_hash = db.Column(db.String)
 	items = db.relationship('Item', backref='user', lazy='dynamic')
+	categories = db.relationship('Category', backref='user', lazy='dynamic')
 
 	# ensure the password cannot be read
 	@property 
@@ -42,7 +43,13 @@ class User(db.Model, UserMixin):
 class Category(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(80), unique=True , nullable=False)
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 	items = db.relationship('Item', backref='category', lazy='joined')
+
+	@staticmethod
+	# retrieve all existing categories
+	def all():
+		return Category.query.all()
 
 	# provide a clean representation of the object instance
 	def __repr__(self):

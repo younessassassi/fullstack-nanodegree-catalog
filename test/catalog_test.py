@@ -15,11 +15,11 @@ class CatalogTestCase(TestCase):
 		self.client = self.app.test_client()
 
 		u = User(username='test@test.com', password='test', name='Testa Tester')
-		# ctg = Category(name='soccer')
-	 	item = Item(name='ball', description='soccer ball', user=u)
+		c = Category(name='soccer', user=u)
+	 	i = Item(name='ball', description='soccer ball', user=u, category=c)
 		self.db.session.add(u)
-		# self.db.session.add(ctg)
-		self.db.session.add(item)
+		self.db.session.add(c)
+		self.db.session.add(i)
 		self.db.session.commit()
 
 		self.client.post(url_for('auth.login'),
@@ -40,9 +40,13 @@ class CatalogTestCase(TestCase):
 		)
 
 		assert response.status_code == 200
-		# ctg = Category.query.first()
+		ctg = Category.query.first()
 		itm = Item.query.first()
-		
+		ctgItem = ctg.items[0]
 		assert itm.description == 'cool hat'
+		assert ctg.name == 'soccer'
+		assert ctgItem == itm
+		assert ctgItem.name == 'Hat'
+		assert ctg.user.name == 'Testa Tester'
 
 

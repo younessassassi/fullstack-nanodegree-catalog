@@ -1,19 +1,26 @@
 {% extends "main/base.html" %}
 {% from "common/form_macros.html" import render_field %}
 
+{% block styles %}
+	{{ super() }}
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/select2.css') }}">
+{% endblock styles %}
+
+
 {% block title %}
 	Catalog -- {{ title }}
 {% endblock %}
 
 {% block content %}
-	<section>
+	<section class="item-form">
 		<h1>{{ title }}</h1>
 		<form action="" method="post">
 			{{form.hidden_tag()}}
 			<table>
-				{{ render_field(form.name, size=50) }}
-				{{ render_field(form.description, size=50) }}
-				<tr class="submit">
+				{{ render_field(form.name) }}
+				{{ render_field(form.description) }}
+			{# 	{{ render_field(form.category, id='categories') }}
+		 #}		<tr class="submit">
 					<td></td>
 					<td>
 						<button type="submit">Submit</button>
@@ -23,3 +30,16 @@
 		</form>
 	</section>
 {% endblock %}
+
+{% block scripts %}
+	<script src="{{ url_for('static', filename='js/vendor/select2.min.js') }}"></script>
+	<script>
+		$(document).ready(function(){
+			var _categories = {{ all_categories()|map(attribute='name')|list|tojson|safe }};
+			$('#categories').select2({
+								data: _categories
+						    });
+			});
+	</script>
+{% endblock scripts %}
+

@@ -27,5 +27,6 @@ def page_not_found(e):
 	return render_template('main/500.html'), 500
 
 @main.app_context_processor
-def inject_items():
-	return dict(all_items=Item.all)
+def inject_categories_and_items():
+	return dict(all_items=Item.all,
+				all_categories=Category.all)
