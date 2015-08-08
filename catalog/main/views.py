@@ -11,7 +11,7 @@ def load_user(userid):
 
 @main.route('/')
 def index():
-	return render_template('main/index.html', new_items=Item.newest(10))
+	return render_template('main/index.html', new_items=Item.newest(10), new_categories=Category.all())
 
 
 @main.app_errorhandler(403)

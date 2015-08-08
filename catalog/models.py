@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import desc
+from sqlalchemy import desc, asc
 from flask_login import UserMixin
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -47,9 +47,14 @@ class Category(db.Model):
 	items = db.relationship('Item', backref='category', lazy='joined')
 
 	@staticmethod
+	# retrieve the category based on its id
+	def get_by_category_id(id):
+		return Category.query.filter_by(id=id).first()
+
+	@staticmethod
 	# retrieve all existing categories
 	def all():
-		return Category.query.all()
+		return Category.query.order_by(asc(Category.name))
 
 	# provide a clean representation of the object instance
 	def __repr__(self):

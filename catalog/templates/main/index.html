@@ -11,6 +11,16 @@
             <p>Catalog displays a list of available items under various categories.  Registered users can modify these items</p>
         </header>
         <section>
+            <h2> Categories </h2>
+            {% if new_categories.count() > 0 %}
+                {% with  categories=new_categories  %}
+                    {% include "categories/category_list.html" %}
+                {% endwith %}
+            {% else %}
+                No categories were found
+            {% endif %}
+        </section>
+        <section>
             <h2>Latest Items</h2>
             {% if new_items.count() > 0  %}
                 {% with items=new_items %}

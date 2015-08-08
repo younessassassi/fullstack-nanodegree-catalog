@@ -19,8 +19,8 @@
 			<table>
 				{{ render_field(form.name) }}
 				{{ render_field(form.description) }}
-			{# 	{{ render_field(form.category, id='categories') }}
-		 #}		<tr class="submit">
+				{{ render_field(form.category, id='categories') }}
+				<tr class="submit">
 					<td></td>
 					<td>
 						<button type="submit">Submit</button>
@@ -35,11 +35,38 @@
 	<script src="{{ url_for('static', filename='js/vendor/select2.min.js') }}"></script>
 	<script>
 		$(document).ready(function(){
-			var _categories = {{ all_categories()|map(attribute='name')|list|tojson|safe }};
+			
+			var _categoryNames = {{ all_categories()|map(attribute='name')|list|tojson|safe }};
+			var _categoryIds = {{ all_categories()|map(attribute='id')|list|tojson|safe }};
+			var i = 0;
+			var len = _categoryNames.length;
+			var data  = [];
+			for (; i < len; ) { 
+				catObj = {
+					id: _categoryIds[i],
+					text: _categoryNames[i]
+				}
+			    data[i] = catObj;
+			    console.log("catObj id: " + catObj.id + " catObj text: " + catObj.text)
+			    i++;
+			}
+			var selectedCategoryName = "{{ form.category.data.name }}";
+			var selectedCategoryId = "{{ form.category.data.id }}";
+
 			$('#categories').select2({
-								data: _categories
+								width: 'resolve',
+								data: data
 						    });
+			if (selectedCategoryName) {
+				var catObj = {
+					id: selectedCategoryId,
+					text: selectedCategoryName
+				}
+				$('#categories').select2('data', catObj);	
+			}
+
 			});
+			
 	</script>
 {% endblock scripts %}
 

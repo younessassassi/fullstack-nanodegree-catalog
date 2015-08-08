@@ -11,10 +11,10 @@ from ..models import User, Category, Item
 def add():
     form = ItemForm()
     if form.validate_on_submit():
-        name = form.name.data
+        itemName = form.name.data
         description = form.description.data
-        item = Item(name=name, description=description, user=current_user)
-        db.session.add(item)
+        category = form.category.data
+        item = Item(name=itemName, description=description, user=current_user, category=category)
         db.session.commit()
         flash("stored item '{}'".format(description))
         return redirect(url_for('main.index'))
