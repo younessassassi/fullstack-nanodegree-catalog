@@ -55,7 +55,8 @@ def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     return render_template('items/user.html', user=user)
 
-# @items.route('/tag/<name>')
-# def tag(name):
-#     tag = Tag.query.filter_by(name=name).first_or_404()
-#     return render_template('tag.html', tag=tag)
+@items.route('/category/<int:category_id>')
+def category(category_id):
+    category = Category.query.filter_by(id=category_id).first_or_404()
+    return render_template('items/category.html', category=category)
+

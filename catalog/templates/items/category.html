@@ -1,14 +1,14 @@
 {% extends "main/base.html" %} 
 
 {% block title %}
-Catalog -- Items for user {{ user.name }}
+Catalog -- Items for Category {{ category.name }}
 {% endblock %}
 
 {% block content %}	
 	 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-		<h3>Items for {{ user.name }}</h3>
+		<h3>Items for {{ category.name }}</h3>
 		<ul>
-			{% for item in user.items %}
+			{% for item in category.items %}
 				<li class="list-group-item item-list">
 					<div class="row">
 						<div class="col-md-6 pull-left" style="; padding-bottom:5px;">
@@ -20,8 +20,11 @@ Catalog -- Items for user {{ user.name }}
 					</div>	
 				</li>
 			{% else %}
-				<li>You have not added any items yet.</li>
+				<li>No items have been for this category.</li>
 			{% endfor %}
 		</ul>
+		<span class="pull-right">
+			<a href="{{ url_for('categories.delete', category_id=category.id) }}" class="btn btn-danger">Remove Category</a>	
+		</span>
 	</div>
 {% endblock %}

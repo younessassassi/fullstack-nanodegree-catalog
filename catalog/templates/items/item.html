@@ -1,25 +1,37 @@
-<div class="item">
-	<a class="header" href="{{ item.url }}">
-		<h3 class="name">
-			{{ item.name|truncate(50, killwordsTrue) }}
-		</h3>
-		<span class="description">
-			{{ item.description|truncate(50, killwords=True) }}
-		</span>
-	</a>
-	<div class="info">
-		
-		<br>
+<li class="list-group-item item-list">
+	<div class="row">
+		<div class="col-md-8" style="float:left; padding-bottom:5px;">
+			<a href="#" data-toggle="modal" 
+						data-target="#itemInfo" 
+						data-item-name="{{item.name}}" 
+						data-item-description="{{item.description}}">
+				<h4>{{ item.name|truncate(50, killwordsTrue) }}</h4>
+			</a>
 
-		Added by <a href="{{ url_for('items.user', username=item.user.username) }}">
-			{{ item.user.name }}
-		</a>
-		{{ moment(item.date).fromNow() }}.
-		{% if current_user == item.user %}
-			<span class="edititems">
+		</div>
+		<div class="col-md-4" style="float:right; padding-bottom:5px;">
+			<h5>{{ item.category.name }}</h5>
+		</div>
+		
+	</div>
+	<div class="row">
+		<div class="col-md-6 pull-left">
+			Added by <a href="{{ url_for('items.user', username=item.user.username) }}">
+			{{ item.user.name }}</a>
+			{{ moment(item.date).fromNow() }}.
+		</div>
+		<div class="col-md-6 pull-right">
+			{% if current_user == item.user %}
+			<span style="float:right" id="action-links">
 				<a href="{{ url_for('items.edit', item_id=item.id) }}">edit</a>
+				<span> | </span>
 				<a href="{{ url_for('items.delete', item_id=item.id) }}">delete</a>
 			</span>
 		{% endif %}
+		</div>
 	</div>
-</div>
+</li>
+
+
+
+

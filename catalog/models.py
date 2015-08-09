@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import desc, asc
+from sqlalchemy import desc, collate
 from flask_login import UserMixin
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -54,7 +54,7 @@ class Category(db.Model):
 	@staticmethod
 	# retrieve all existing categories
 	def all():
-		return Category.query.order_by(asc(Category.name))
+		return Category.query.order_by(collate(Category.name, 'NOCASE'))
 
 	# provide a clean representation of the object instance
 	def __repr__(self):

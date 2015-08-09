@@ -11,7 +11,7 @@ def load_user(userid):
 
 @main.route('/')
 def index():
-	return render_template('main/index.html', new_items=Item.newest(10), new_categories=Category.all())
+        return render_template('main/index.html', new_items=Item.newest(10), new_categories=Category.all())
 
 
 @main.app_errorhandler(403)
@@ -27,6 +27,5 @@ def page_not_found(e):
 	return render_template('main/500.html'), 500
 
 @main.app_context_processor
-def inject_categories_and_items():
-	return dict(all_items=Item.all,
-				all_categories=Category.all)
+def inject_categories():
+	return dict(all_categories=Category.all)

@@ -1,28 +1,10 @@
+<!-- extend base layout -->
 {% extends "main/base.html" %}
-
-{% block title %}
-    Catalog -- Welcome
-{% endblock %}
-
 {% block content %}
-    <article>
-        <header>
-            <h1>Welcome</h1>
-            <p>Catalog displays a list of available items under various categories.  Registered users can modify these items</p>
-        </header>
-        <section>
-            <h2> Categories </h2>
-            {% if new_categories.count() > 0 %}
-                {% with  categories=new_categories  %}
-                    {% include "categories/category_list.html" %}
-                {% endwith %}
-            {% else %}
-                No categories were found
-            {% endif %}
-        </section>
-        <section>
-            <h2>Latest Items</h2>
-            {% if new_items.count() > 0  %}
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      <h1 class="page-header">Latest Items</h1>
+      <div class="row placeholders">
+          {% if new_items.count() > 0  %}
                 {% with items=new_items %}
                     {% include "items/item_list.html" %}
                 {% endwith %}
@@ -30,7 +12,27 @@
             {% else %}
                 No items have been added yet
             {% endif %}
-                
-        </section>
-    </article>
+        </div>
+    </div>   
+       
 {% endblock %}
+
+{% block scripts %}
+  <script type="text/javascript">
+  $(document).ready(function(){
+     $('#itemInfo').on('show.bs.modal', function (event) { // id of the modal with event
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var itemName = button.data('item-name') // Extract name from data-* attributes
+        var itemDescription = button.data('item-description')
+        
+        var title = itemName
+        var content = itemDescription
+        
+        // Update the modal's content.
+        var modal = $(this)
+        modal.find('.modal-title').text(title)
+        modal.find('.modal-body').text(content)   
+      })
+    });
+  </script>
+{% endblock scripts %}

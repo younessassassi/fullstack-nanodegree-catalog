@@ -5,10 +5,9 @@ from wtforms.validators import DataRequired, Length, Email, Regexp, EqualTo, \
 from ..models import User
 
 class LoginForm(Form):
-	username = StringField('Username:', validators=[DataRequired()])
+	username = StringField('Username', validators=[DataRequired()])
 	password = PasswordField('Password', validators=[DataRequired()])
 	remember_me = BooleanField('Keep me logged in')
-	submit = SubmitField('Log In')
 
 
 class SignupForm(Form):
