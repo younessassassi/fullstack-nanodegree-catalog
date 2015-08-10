@@ -1,5 +1,6 @@
 from flask import render_template, url_for, redirect, flash, request, abort
 from flask_login import login_required, current_user
+from werkzeug.exceptions import HTTPException
 
 from . import items
 from .forms import ItemForm
@@ -14,9 +15,13 @@ def add():
         itemName = form.name.data
         description = form.description.data
         category = form.category.data
-        item = Item(name=itemName, description=description, user=current_user, category=category)
-        db.session.commit()
-        flash("stored item '{}'".format(description))
+        try:
+            i = Item.query.filter_by(name=itemName).one()
+            flash("item '{}' already exists.".format(itemName))
+        except:
+            item = Item(name=itemName, description=description, user=current_user, category=category)
+            db.session.commit()
+            flash("stored item '{}'".format(description))
         return redirect(url_for('main.index'))
     return render_template('items/item_form.html', form=form, title="Add new item")
 

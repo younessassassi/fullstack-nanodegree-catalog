@@ -6,23 +6,16 @@ Catalog -- Items for Category {{ category.name }}
 
 {% block content %}	
 	 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-		<h3>Items for {{ category.name }}</h3>
-		<ul>
-			{% for item in category.items %}
-				<li class="list-group-item item-list">
-					<div class="row">
-						<div class="col-md-6 pull-left" style="; padding-bottom:5px;">
-							<a href="{{ item.url }}">{{ item.name + " ({})".format(item.category.name) }}</a>
-						</div>
-						<div class="col-md-6 pull-right">
-							<span class="timestamp">Added on {{ moment(item.date).format('MMMM Do YYYY, h:mm:ss a') }}</span>
-						</div>
-					</div>	
-				</li>
+
+	 	{% with items=category.items %}
+			{% if items.count() > 0 %}
+				<h3>Items for {{ category.name }}</h3>
+				{% include "items/item_list.html" %}
 			{% else %}
-				<li>No items have been for this category.</li>
-			{% endfor %}
-		</ul>
+				<h4>No items have been added for this category.</h4>
+			{% endif %} 
+        {% endwith %}
+
 		<span class="pull-right">
 			<a href="{{ url_for('categories.delete', category_id=category.id) }}" class="btn btn-danger">Remove Category</a>	
 		</span>

@@ -8,14 +8,13 @@
      <title>{% block title %}{% endblock %}</title>
     {% block styles %}
        <!-- Bootstrap core CSS -->
-      <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+       <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
 
       <!-- Custom styles for this template -->
-      <link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
-
-      <!-- My CSS -->
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
       
     {% endblock styles %}
+    <!-- My CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
      <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -39,14 +38,14 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
           <ul class="nav navbar-nav navbar-right">
-             <li><a href="{{ url_for('categories.add') }}">Add Category</a></li>
-              <li><a href="{{ url_for('items.add') }}">Add Item</a></li>
+             <li {% if request.path == '/categories/add' %}class="active"{% endif %} ><a href="{{ url_for('categories.add') }}">Add Category</a></li>
+              <li {% if request.path == '/items/add' %}class="active"{% endif %}><a href="{{ url_for('items.add') }}">Add Item</a></li>
               {% if current_user.is_authenticated() %}
-                 {#  <li><a href="{{ url_for('items.user', username=current_user.username) }}">My Items</a></li> #}
+                  <li {% if request.path == '/items/user/{}'.format(current_user.username) %}class="active"{% endif %}><a href="{{ url_for('items.user', username=current_user.username) }}">My Items</a></li>
                   <li><a href="{{ url_for('auth.logout') }}">Sign out</a></li>
               {% else %}
-                  <li><a href="{{ url_for('auth.signup') }}">Sign up</a></li>
-                  <li><a href="{{ url_for('auth.login') }}">Sign in</a></li>
+                  <li {% if request.path == '/auth/signup' %}class="active"{% endif %}><a href="{{ url_for('auth.signup') }}">Sign up</a></li>
+                  <li {% if request.path == '/auth/login' %}class="active"{% endif %}><a href="{{ url_for('auth.login') }}">Sign in</a></li>
               {% endif %}
           </ul>
         </div>
@@ -71,7 +70,7 @@
               <h4>Category list</h4>
                 <ul class="nav nav-sidebar">
                   {% if all_categories() > 0 %}
-                      {% with  categories=all_categories()  %}
+                      {% with categories=all_categories()  %}
                           {% include "categories/category_list.html" %}
                       {% endwith %}
                   {% else %}
@@ -95,7 +94,58 @@
     <script src="{{ url_for('static', filename='js/vendor/jquery-1.11.3.min.js') }}"></script>
 
     <script src="{{ url_for('static', filename='js/vendor/bootstrap.min.js') }}"></script>
-    {{ moment.include_moment() }}
+
+   <!-- Moment js used to display time in a friendly manner -->
+    <script src="{{ url_for('static', filename='js/vendor/moment-with-locales.min.js') }}"></script>
+    
+    <script>
+      // handle time friendly display
+      moment.locale("en");
+      function flask_moment_render(elem) {
+          $(elem).text(eval('moment("' + $(elem).data('timestamp') + '").' + $(elem).data('format') + ';'));
+          $(elem).removeClass('flask-moment').show();
+      }
+      function flask_moment_render_all() {
+          $('.flask-moment').each(function() {
+              flask_moment_render(this);
+              if ($(this).data('refresh')) {
+                  (function(elem, interval) { setInterval(function() { flask_moment_render(elem) }, interval); })(this, $(this).data('refresh'));
+              }
+          })
+      }
+
+      // Hide flask meessages automatically if user does not close them
+      function auto_hide_flask_messages() {
+        window.setTimeout(function() {
+              $(".alert-info").fadeTo(500, 0).slideUp(500, function(){
+                  $(this).remove(); 
+              });
+          }, 5000);
+      }
+
+      // Fill out modal view with dat from selected item
+      function fill_modal_with_data() {
+        $('#itemInfo').on('show.bs.modal', function (event) { // id of the modal with event
+          var button = $(event.relatedTarget) // Button that triggered the modal
+          var itemName = button.data('item-name') // Extract name from data-* attributes
+          var itemDescription = button.data('item-description')
+          
+          var title = itemName
+          var content = itemDescription
+          
+          // Update the modal's content.
+          var modal = $(this)
+          modal.find('.modal-title').text(title)
+          modal.find('.modal-body').text(content)   
+        })
+      }
+      $(document).ready(function() {
+          flask_moment_render_all();
+          fill_modal_with_data();
+          auto_hide_flask_messages();    
+      });
+    </script>
+
      <!-- custom scripts will go here -->
      {% block scripts %}           
      {% endblock scripts %} 
