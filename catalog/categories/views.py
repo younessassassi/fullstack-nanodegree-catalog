@@ -6,6 +6,10 @@ from .forms import CategoryForm
 from .. import db
 from ..models import User, Category
 
+@categories.route('/list')
+def list():
+        return render_template('categories/categories.html')
+
 @categories.route('/add', methods=['POST', 'GET'])
 @login_required
 def add():

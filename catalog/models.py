@@ -56,6 +56,14 @@ class Category(db.Model):
 	def all():
 		return Category.query.order_by(collate(Category.name, 'NOCASE'))
 
+	@property
+	def serialize(self):
+		"""Return object data in easily serializeable format"""
+		return {
+			'name': self.name,
+			'id': self.id,
+		}
+
 	# provide a clean representation of the object instance
 	def __repr__(self):
 		return "<Category '{}'>".format(self.name)
@@ -89,6 +97,15 @@ class Item(db.Model):
 	# retrieve all existing items
 	def all():
 		return Item.query.all()
+
+	@property
+	def serialize(self):
+		return {
+			'name': self.name,
+			'description': self.description,
+			'id': self.id,
+			'date': self.date
+		}
 
 	# provide a clean representation of the object instance
 	def __repr__(self):

@@ -3,7 +3,14 @@
 {% block content %}
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
       <h1 class="page-header">Latest Items</h1>
-      <div class="row placeholders">
+      <span class="visible-xs">
+        <a href="{{ url_for('categories.list')}}" 
+           type="button" 
+           class="btn btn-primary btn-xs"
+           style="margin-bottom:10px;">Category list</a>
+      </span>
+      
+      <div class="row">
           {% if new_items.count() > 0  %}
                 {% with items=new_items %}
                     {% include "items/item_list.html" %}

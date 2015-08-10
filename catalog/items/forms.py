@@ -1,5 +1,6 @@
 from flask_wtf import Form
 from wtforms.fields import StringField
+from wtforms.widgets import TextArea
 from wtforms.validators import DataRequired, Regexp
 from ..models import Category
 
@@ -8,8 +9,7 @@ class ItemForm(Form):
     name = StringField(
         'Title:', validators=[DataRequired(), Regexp(r'^[A-Za-z0-9, ]*$',
          message="A name can only contain letters and numbers")])
-    description = StringField('Add an optional description:', validators=[Regexp(r'^[A-Za-z0-9, ]*$',
-         message="A description can only contain letters and numbers")])
+    description = StringField('Add an optional description:', widget=TextArea())
     category = StringField('Category:', validators=[DataRequired()])
     
     def validate(self):

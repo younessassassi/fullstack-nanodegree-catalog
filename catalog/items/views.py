@@ -1,4 +1,4 @@
-from flask import render_template, url_for, redirect, flash, request, abort
+from flask import render_template, url_for, redirect, flash, request, abort, jsonify
 from flask_login import login_required, current_user
 from werkzeug.exceptions import HTTPException
 
@@ -21,7 +21,7 @@ def add():
         except:
             item = Item(name=itemName, description=description, user=current_user, category=category)
             db.session.commit()
-            flash("stored item '{}'".format(description))
+            flash("stored item '{}'".format(itemName))
         return redirect(url_for('main.index'))
     return render_template('items/item_form.html', form=form, title="Add new item")
 
@@ -35,7 +35,7 @@ def edit(item_id):
     if form.validate_on_submit():
         form.populate_obj(item)
         db.session.commit()
-        flash("Stored '{}'".format(item.description))
+        flash("Stored '{}'".format(item.name))
         return redirect(url_for('.user', username=current_user.username))
     return render_template('items/item_form.html', form=form, title="Edit item")
 
@@ -48,7 +48,7 @@ def delete(item_id):
     if request.method == "POST":
         db.session.delete(item)
         db.session.commit()
-        flash("Deleted '{}'".format(item.description))
+        flash("Deleted '{}'".format(item.name))
         return redirect(url_for('.user', username=current_user.username))
     else:
         flash("Please confirm deleting the item.")
@@ -64,4 +64,16 @@ def user(username):
 def category(category_id):
     category = Category.query.filter_by(id=category_id).first_or_404()
     return render_template('items/category.html', category=category)
+
+# JSON APIs to view item Information
+@items.route('/item/<int:item_id>/JSON')
+def itemJSON(item_id):
+    item = Item.query.filter_by(id=item_id).first()
+    return jsonify(item=item.serialize)
+
+
+@items.route('/all/JSON')
+def allJSON():
+    items = Item.all()
+    return jsonify(items=[i.serialize for i in items])
 

@@ -14,6 +14,7 @@ def index():
         return render_template('main/index.html', new_items=Item.newest(10), new_categories=Category.all())
 
 
+
 @main.app_errorhandler(403)
 def page_not_found(e):
 	return render_template('main/403.html'), 403
