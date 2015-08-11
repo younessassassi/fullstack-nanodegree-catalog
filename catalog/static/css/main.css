@@ -80,3 +80,7 @@ input , button {
 .category-edit {
   margin-top: 3px;
 }
+
+#itemDescription {
+  margin-left: 10px;
+}

@@ -21,7 +21,7 @@
 	            {% call macros.render_form(form, action_url='', action_text='Submit',
 	                                        class_='form-signin', btn_class='btn btn-lg btn-primary btn-block')%}
 	                {{ macros.render_field(form.name, label_visible=false, placeholder='Item Name', type='text') }}
-	                {{ macros.render_field(form.description, label_visible=false, placeholder='Item Description', type='text') }}
+	                {{ macros.render_field(form.description, label_visible=false, placeholder='Item Description', id='itemDescription', type='text') }}
 	                {{ macros.render_field(form.category, id='categories', label_visible=false, placeholder='Item Category', type='text') }}
 	            {% endcall %}
 	        </div>
