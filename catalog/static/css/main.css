@@ -84,3 +84,40 @@ input , button {
 #itemDescription {
   margin-left: 10px;
 }
+
+.login-alignment {
+  margin-left: 10px;
+}
+
+/* borrowed from Udacity login page */
+.hr-with-words {
+  height: 2em;
+  margin: 0 -5px 1.25em 10px;
+  display: block;
+  border-bottom: solid 3px #dcdcdc;
+  background: none;
+  position: relative;
+  text-align: center;
+  overflow: visible;
+  clear: both;
+  line-height: 2em;
+}
+
+/* borrowed from Udacity login page */
+.hr-with-words > span {
+  color: #999999;
+  display: inline-block;
+  background: #ffffff;
+  padding: 0.65em 0.70em;
+  font-style: italic;
+}
+
+/* borrowed from Udacity login page */
+@media (min-width: 768px) {
+  .form-container {
+    border: 1px solid #dcdcdc;
+    padding: 0 35px 35px 35px;
+    margin-top: 20px;
+  }
+}
+
