@@ -7,11 +7,14 @@ from ..models import Category
 
 class ItemForm(Form):
     name = StringField(
-        'Title:', validators=[DataRequired(), Regexp(r'^[A-Za-z0-9, ]*$',
-         message="A name can only contain letters and numbers")])
-    description = StringField('Add an optional description:', widget=TextArea())
+        'Title:',
+        validators=[DataRequired(),
+                    Regexp(r'^[A-Za-z0-9, ]*$',
+                    message="A name can only contain letters and numbers")])
+    description = StringField('Add an optional description:',
+                              widget=TextArea())
     category = StringField('Category:', validators=[DataRequired()])
-    
+
     def validate(self):
         if not Form.validate(self):
             return False

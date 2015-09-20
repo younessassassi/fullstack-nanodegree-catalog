@@ -1,29 +1,34 @@
-from flask import render_template, url_for, redirect, flash, request, abort, jsonify
+from flask import render_template, url_for, redirect
+from flask import flash, request, abort, jsonify
 from flask_login import login_required, current_user
-from werkzeug.exceptions import HTTPException
 
 from . import items
 from .forms import ItemForm
 from .. import db
 from ..models import User, Category, Item
 
+
 @items.route('/add', methods=['POST', 'GET'])
 @login_required
 def add():
     form = ItemForm()
     if form.validate_on_submit():
-        itemName = form.name.data
+        item_name = form.name.data
         description = form.description.data
         category = form.category.data
         try:
-            i = Item.query.filter_by(name=itemName).one()
-            flash("item '{}' already exists.".format(itemName))
+            i = Item.query.filter_by(name=item_name).one()
+            flash("item '{}' already exists.".format(item_name))
         except:
-            item = Item(name=itemName, description=description, user=current_user, category=category)
+            item = Item(name=item_name, description=description,
+                        user=current_user, category=category)
             db.session.commit()
-            flash("stored item '{}'".format(itemName))
+            flash("stored item '{}'".format(item_name))
         return redirect(url_for('main.index'))
-    return render_template('items/item_form.html', form=form, title="Add new item")
+    return render_template('items/item_form.html',
+                           form=form,
+                           title="Add new item")
+
 
 @items.route('/edit/<int:item_id>', methods=['GET', 'POST'])
 @login_required
@@ -37,7 +42,10 @@ def edit(item_id):
         db.session.commit()
         flash("Stored '{}'".format(item.name))
         return redirect(url_for('.user', username=current_user.username))
-    return render_template('items/item_form.html', form=form, title="Edit item")
+    return render_template('items/item_form.html',
+                           form=form,
+                           title="Edit item")
+
 
 @items.route('/delete/<int:item_id>', methods=['GET', 'POST'])
 @login_required
@@ -52,7 +60,9 @@ def delete(item_id):
         return redirect(url_for('.user', username=current_user.username))
     else:
         flash("Please confirm deleting the item.")
-    return render_template('items/confirm_delete.html', item=item, nolinks=True)
+    return render_template('items/confirm_delete.html',
+                           item=item,
+                           nolinks=True)
 
 
 @items.route('/user/<username>')
@@ -60,20 +70,21 @@ def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     return render_template('items/user.html', user=user)
 
+
 @items.route('/category/<int:category_id>')
 def category(category_id):
     category = Category.query.filter_by(id=category_id).first_or_404()
     return render_template('items/category.html', category=category)
 
+
 # JSON APIs to view item Information
 @items.route('/item/<int:item_id>/JSON')
-def itemJSON(item_id):
+def item_json(item_id):
     item = Item.query.filter_by(id=item_id).first()
     return jsonify(item=item.serialize)
 
 
 @items.route('/all/JSON')
-def allJSON():
+def all_json():
     items = Item.all()
     return jsonify(items=[i.serialize for i in items])
-

@@ -28,6 +28,10 @@ Catalog -- Login
                     <img src={{ url_for('static', filename='img/google-login.png') }}>
                     Sign in with Google
             </a>
+            <a href={{ url_for('auth.oauth_authorize', provider='facebook') }} class="btn btn-lg btn-block btn-default login-alignment">
+                    <img src="" }}>
+                    Sign in with Facebook
+            </a>
         </div>
     </div>
 {% endblock content %}
