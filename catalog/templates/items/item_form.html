@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block content %}
- 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">	
+ 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 		<div class="row">
 	        <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-10 col-lg-offset-1">
 	            <h2 class="form-signin-heading" align="center">
@@ -33,13 +33,13 @@
 	<script src="{{ url_for('static', filename='js/vendor/select2.min.js') }}"></script>
 	<script>
 		$(document).ready(function(){
-			
+
 			var _categoryNames = {{ all_categories()|map(attribute='name')|list|tojson|safe }};
 			var _categoryIds = {{ all_categories()|map(attribute='id')|list|tojson|safe }};
 			var i = 0;
 			var len = _categoryNames.length;
 			var data  = [];
-			for (; i < len; ) { 
+			for (; i < len; ) {
 				catObj = {
 					id: _categoryIds[i],
 					text: _categoryNames[i]
@@ -60,11 +60,11 @@
 					id: selectedCategoryId,
 					text: selectedCategoryName
 				}
-				$('#categories').select2('data', catObj);	
+				$('#categories').select2('data', catObj);
 			}
 			$('#s2id_categories').removeClass("form-control");
 		});
-			
+
 	</script>
 {% endblock scripts %}
 

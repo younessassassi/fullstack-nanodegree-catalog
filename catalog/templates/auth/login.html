@@ -1,36 +1,32 @@
 {% extends "main/base.html" %}
 {% import 'common/form_macros.html' as macros %}
-
-
 {% block title %}
-Catalog -- Login	
-{% endblock title %}	
-
+    Catalog -- Login
+{% endblock title %}
 {% block sidebar %}
-    
 {% endblock sidebar %}
 {% block content %}
     <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-5 col-md-offset-3 col-lg-4 col-lg-offset-3">
         <div class="form-container form-signin">
             <h2 class="form-signin-heading">
-                Please Sign in!
+            Please Sign in!
             </h2>
             {% call macros.render_form(form, action_url='', action_text='Sign in',
-                                    class_='', btn_class='btn btn-lg btn-primary btn-block')%}
-            {{ macros.render_field(form.username, label_visible=false, placeholder='Email', type='email') }}
-            {{ macros.render_field(form.password, label_visible=false, placeholder='Password', type='password') }}
-            {{ macros.render_checkbox_field(form.remember_me, style='margin-left:-10px') }}
+                                       class_='', btn_class='btn btn-lg btn-primary btn-block')%}
+                {{ macros.render_field(form.username, label_visible=false, placeholder='Email', type='email') }}
+                {{ macros.render_field(form.password, label_visible=false, placeholder='Password', type='password') }}
+                {{ macros.render_checkbox_field(form.remember_me, style='margin-left:-10px') }}
             {% endcall %}
-             <div class="hr-with-words">
+            <div class="hr-with-words">
                 <span>or</span>
             </div>
             <a href={{ url_for('auth.oauth_authorize', provider='google') }} class="btn btn-lg btn-block btn-default login-alignment">
-                    <img src={{ url_for('static', filename='img/google-login.png') }}>
-                    Sign in with Google
+                <img src={{ url_for('static', filename='img/google-login.png') }}>
+                Sign in with Google
             </a>
             <a href={{ url_for('auth.oauth_authorize', provider='facebook') }} class="btn btn-lg btn-block btn-default login-alignment">
-                    <img src="" }}>
-                    Sign in with Facebook
+                <img src="" }}>
+                Sign in with Facebook
             </a>
         </div>
     </div>

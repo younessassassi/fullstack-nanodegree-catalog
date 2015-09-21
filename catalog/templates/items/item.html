@@ -1,9 +1,9 @@
 <li class="list-group-item item-list">
 	<div class="row">
 		<div class="col-md-8 pull-left" style="text-align: left;padding-bottom:5px;">
-			<a href="#" data-toggle="modal" 
-						data-target="#itemInfo" 
-						data-item-name="{{item.name}}" 
+			<a href="#" data-toggle="modal"
+						data-target="#itemInfo"
+						data-item-name="{{item.name}}"
 						data-item-description="{{item.description}}">
 				<h4>{{ item.name|truncate(50, killwordsTrue) }}</h4>
 			</a>
@@ -12,7 +12,7 @@
 		<div class="col-md-4 pull-right" style="text-align: right;padding-bottom:5px;">
 			<h5>{{ item.category.name }}</h5>
 		</div>
-		
+
 	</div>
 	<div class="row">
 		<div class="col-md-6 pull-left" style="text-align: left;">

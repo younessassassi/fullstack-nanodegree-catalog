@@ -1,20 +1,17 @@
-{% extends "main/base.html" %} 
-
+{% extends "main/base.html" %}
 {% block title %}
 Catalog -- Items for user {{ user.name }}
 {% endblock %}
 
-{% block content %}	
-	 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-
+{% block content %}
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 		{% with items=user.items %}
 			{% if items.count() > 0 %}
 				<h3>Items for {{ user.name }}</h3>
 				{% include "items/item_list.html" %}
 			{% else %}
 				<h4>You have not added any items yet.</h4>
-			{% endif %} 
+			{% endif %}
         {% endwith %}
-
 	</div>
 {% endblock %}

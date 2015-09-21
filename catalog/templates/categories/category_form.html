@@ -1,22 +1,20 @@
 {% extends "main/base.html" %}
 {% import 'common/form_macros.html' as macros %}
-
 {% block title %}
-	Catalog -- {{ title }}
+    Catalog -- {{ title }}
 {% endblock %}
-
 {% block content %}
-     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    	<div class="row">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row">
             <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-10 col-lg-offset-1">
                 <h2 class="form-signin-heading" align="center">
-                    {{ title }}
+                {{ title }}
                 </h2>
                 {% call macros.render_form(form, action_url='', action_text='Submit',
-                                            class_='form-signin', btn_class='btn btn-lg btn-primary btn-block')%}
-                    {{ macros.render_field(form.name, label_visible=false, placeholder='Gategory Name', type='text') }}
-                {% endcall %}
-            </div>
+                class_='form-signin', btn_class='btn btn-lg btn-primary btn-block')%}
+                {{ macros.render_field(form.name, label_visible=false, placeholder='Gategory Name', type='text') }}
+            {% endcall %}
         </div>
     </div>
+</div>
 {% endblock %}

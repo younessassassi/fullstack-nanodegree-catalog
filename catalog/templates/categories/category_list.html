@@ -1,6 +1,6 @@
 {% for category in categories  %}
-	<li categories/list {% if request.path == '/items/category/{}'.format(category.id) %}class="active"
-	{% elif request.path == '/categories/list' %}class="list-group-item item-list"{% endif %}>
-		<a href="{{ url_for('items.category', category_id=category.id) }}">{{ category.name }}</a>
-	</li>
+    <li categories/list {% if request.path == '/items/category/{}'.format(category.id) %}class="active"
+        {% elif request.path == '/categories/list' %}class="list-group-item item-list"{% endif %}>
+         <a href="{{ url_for('items.category', category_id=category.id) }}">{{ category.name }}</a>
+    </li>
 {% endfor %}

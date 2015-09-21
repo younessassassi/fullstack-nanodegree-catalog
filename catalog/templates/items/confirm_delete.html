@@ -15,7 +15,7 @@
 			<a class="btn btn-primary" href="{{ url_for('items.user', username=current_user.username) }} ">
 				No, go back to my home page
 			</a>
-			<button class="btn btn-danger" type="submit">Yes, delete it</button>	
+			<button class="btn btn-danger" type="submit">Yes, delete it</button>
 		</form>
 	</div>
 {% endblock content %}
@@ -24,6 +24,6 @@
 	<script>
 		$(document).ready(function(){
 			$('#action-links').hide()
-		});	
+		});
 	</script>
 {% endblock scripts %}
