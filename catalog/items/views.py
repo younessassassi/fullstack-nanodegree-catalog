@@ -82,7 +82,7 @@ def category(category_id):
     return render_template('items/category.html', category=category)
 
 
-@items.route('/item/<int:item_id>/json')
+@items.route('/<int:item_id>/json')
 def item_json(item_id):
     """return a json object for a specific item """
     item = Item.query.filter_by(id=item_id).first()
