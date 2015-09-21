@@ -4,6 +4,7 @@ from wtforms.validators import DataRequired, Regexp
 
 
 class CategoryForm(Form):
+    """Category form """
     name = StringField('Title:',
                        validators=[DataRequired(),
                                    Regexp(r'^[A-Za-z ]*$',

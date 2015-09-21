@@ -9,12 +9,14 @@ from ..models import User, Category
 
 @categories.route('/list')
 def list():
-        return render_template('categories/categories.html')
+    """return template with list of categories """
+    return render_template('categories/categories.html')
 
 
 @categories.route('/add', methods=['POST', 'GET'])
 @login_required
 def add():
+    """return template for adding a category """
     form = CategoryForm()
     if form.validate_on_submit():
         name = form.name.data
@@ -30,6 +32,7 @@ def add():
 @categories.route('/delete/<int:category_id>', methods=['POST', 'GET'])
 @login_required
 def delete(category_id):
+    """return template for deleting a category """
     category = Category.query.get_or_404(category_id)
     if request.method == "POST":
         db.session.delete(category)
@@ -42,7 +45,8 @@ def delete(category_id):
                            category=category, nolinks=True)
 
 
-@categories.route('/all/JSON')
+@categories.route('/all/json')
 def all_json():
+    """return a JSON object with list of categories """
     categories = Category.all()
     return jsonify(categories=[i.serialize for i in categories])

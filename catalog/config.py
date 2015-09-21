@@ -4,6 +4,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config:
+    # random secret key
     SECRET_KEY = '/B]\x06L.\xab\xa4^\x93:}\xc2\x13\xbea\xaa\xcc\x1c\x1f5vq\xad'
     DEBUG = False
     # Oauth configuration data
@@ -13,6 +14,7 @@ class Config:
     FACEBOOK_LOGIN_CLIENT_ID = "519207281561864"
     FACEBOOK_LOGIN_CLIENT_SECRET = "ca811981954aff3b468941dbe5c325b7"
 
+    # Facebook and Google OAuth credentials
     OAUTH_CREDENTIALS = {
         'google': {
             'id': GOOGLE_LOGIN_CLIENT_ID,
@@ -26,6 +28,7 @@ class Config:
 
 
 class DevelopmentConfig(Config):
+    """Dev environment setup """
     DEBUG = True
     DEBUG_TB_INTERCEPT_REDIRECTS = False
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + \
@@ -33,6 +36,7 @@ class DevelopmentConfig(Config):
 
 
 class TestingConfig(Config):
+    """Test environment setup """
     Testing = True
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + \
         os.path.join(basedir, 'data-test.db')
@@ -40,6 +44,7 @@ class TestingConfig(Config):
 
 
 class ProductionConfig(Config):
+    """Prod environment setup """
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + \
         os.path.join(basedir, 'catalog.db')

@@ -21,6 +21,7 @@ moment = Moment()
 
 
 def create_app(config_name):
+    """Create and configure the application """
     app = Flask(__name__)
     app.config.from_object(config_by_name[config_name])
     db.init_app(app)
@@ -46,4 +47,5 @@ def create_app(config_name):
 
     return app
 
+# import database models
 import models

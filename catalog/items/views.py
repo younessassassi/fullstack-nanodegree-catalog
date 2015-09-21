@@ -11,6 +11,7 @@ from ..models import User, Category, Item
 @items.route('/add', methods=['POST', 'GET'])
 @login_required
 def add():
+    """return template for adding an item """
     form = ItemForm()
     if form.validate_on_submit():
         item_name = form.name.data
@@ -33,6 +34,7 @@ def add():
 @items.route('/edit/<int:item_id>', methods=['GET', 'POST'])
 @login_required
 def edit(item_id):
+    """return template for editing an item """
     item = Item.query.get_or_404(item_id)
     if current_user != item.user:
         abort(403)
@@ -50,6 +52,7 @@ def edit(item_id):
 @items.route('/delete/<int:item_id>', methods=['GET', 'POST'])
 @login_required
 def delete(item_id):
+    """return template for deleting an item """
     item = Item.query.get_or_404(item_id)
     if current_user != item.user:
         abort(403)
@@ -67,24 +70,27 @@ def delete(item_id):
 
 @items.route('/user/<username>')
 def user(username):
+    """return template items created by a specific user """
     user = User.query.filter_by(username=username).first_or_404()
     return render_template('items/user.html', user=user)
 
 
 @items.route('/category/<int:category_id>')
 def category(category_id):
+    """return template for an item """
     category = Category.query.filter_by(id=category_id).first_or_404()
     return render_template('items/category.html', category=category)
 
 
-# JSON APIs to view item Information
-@items.route('/item/<int:item_id>/JSON')
+@items.route('/item/<int:item_id>/json')
 def item_json(item_id):
+    """return a json object for a specific item """
     item = Item.query.filter_by(id=item_id).first()
     return jsonify(item=item.serialize)
 
 
-@items.route('/all/JSON')
+@items.route('/all/json')
 def all_json():
+    """return a json all items """
     items = Item.all()
     return jsonify(items=[i.serialize for i in items])

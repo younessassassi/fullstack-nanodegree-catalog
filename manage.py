@@ -15,4 +15,4 @@ manager.add_command("runserver", Server(port=5000, host='0.0.0.0'))
 manager.add_command('db', MigrateCommand)
 
 if __name__ == '__main__':
-	manager.run()
+    manager.run()

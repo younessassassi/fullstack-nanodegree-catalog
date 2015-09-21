@@ -6,9 +6,7 @@ import urllib2
 
 
 class OAuthSignIn(object):
-    """
-    Generic Parent OAuthSignIn class
-    """
+    """Generic Parent OAuthSignIn class"""
     providers = None
 
     def __init__(self, provider_name):
@@ -38,15 +36,14 @@ class OAuthSignIn(object):
 
 
 class GoogleSignIn(OAuthSignIn):
-    """
-    A Google signin subclass of OAuthSignIn
-    """
+    """A Google signin subclass of OAuthSignIn"""
 
     def __init__(self):
         super(GoogleSignIn, self).__init__('google')
-        """
-        This will pull the most up to date google auth urls from
+        """This will pull the most up to date google auth urls from
+
         Google's published list of information
+
         """
         googleinfo = urllib2.urlopen('https://accounts.google.com/'
                                      '.well-known/openid-configuration')
@@ -68,9 +65,7 @@ class GoogleSignIn(OAuthSignIn):
         )
 
     def callback(self):
-        """
-        the class returns the data I am interested in for the user profile
-        """
+        """returns the data I am interested in for the user profile"""
         if 'code' not in request.args:
             return None, None, None
 
@@ -86,12 +81,9 @@ class GoogleSignIn(OAuthSignIn):
         return(me['name'],
                me['email'])
 
-"""
-A Facebook signin subclass of OAuthSignIn
-"""
-
 
 class FacebookSignIn(OAuthSignIn):
+    """A Facebook signin subclass of OAuthSignIn"""
     def __init__(self):
         super(FacebookSignIn, self).__init__('facebook')
         """ Initialize the Facebook service """
@@ -112,9 +104,7 @@ class FacebookSignIn(OAuthSignIn):
         )
 
     def callback(self):
-        """
-        the class returns the data I am interested in for the user profile
-        """
+        """returns the data I am interested in for the user profile"""
         if 'code' not in request.args:
             return None, None, None
 

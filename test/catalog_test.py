@@ -6,7 +6,12 @@ from catalog.models import User, Category, Item
 
 
 class CatalogTestCase(TestCase):
+    """Catalog test case.
 
+    Test case to create db, then add user, category and item then assert that
+    information is correct before tearing down the db
+
+    """
     def create_app(self):
         return catalog.create_app('test')
 

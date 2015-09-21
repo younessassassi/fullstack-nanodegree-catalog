@@ -6,6 +6,7 @@ from ..models import Category
 
 
 class ItemForm(Form):
+    """Item Form """
     name = StringField(
         'Title:',
         validators=[DataRequired(),
@@ -19,6 +20,7 @@ class ItemForm(Form):
         if not Form.validate(self):
             return False
 
+        # fill the description field with name if left empty
         if not self.description.data:
             self.description.data = self.name.data
 

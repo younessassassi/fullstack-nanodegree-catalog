@@ -7,12 +7,18 @@ from ..models import User
 
 
 class LoginForm(Form):
+    """Login form with username, password and remember me fields"""
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Keep me logged in')
 
 
 class SignupForm(Form):
+    """Sign up form with username, password,
+
+    repeat password and name fields
+
+    """
     username = StringField('Username',
                            validators=[DataRequired(),
                                        Length(3, 80), Email()])
@@ -32,5 +38,6 @@ class SignupForm(Form):
     submit = SubmitField('Signup')
 
     def validate_username(self, username_field):
+        """checks if user already exists """
         if User.get_by_username(username_field.data):
             raise ValidationError('This username is already taken.')
