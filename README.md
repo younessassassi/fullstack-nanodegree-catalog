@@ -101,8 +101,8 @@ export PROJECT_HOME=$HOME/path/to/project/directory
 source /usr/local/bin/virtualenvwrapper.sh
 ```
 
-3. save a close the file
-4. navigate to the project directory
+3. Save and close the file
+4. Navigate to the project directory
 
 ```sh
 $ cd path/to/project/folder
@@ -140,8 +140,8 @@ import pdb
 pdb.set_trace()
 ```
 
-2. Run the application until it his the breakpoint
-3. Use thes command in the python console
+2. Run the application until it hits the breakpoint
+3. Use these commands in the python console
 
 ```sh
 'l' #to list the context of breakpoint
