@@ -13,6 +13,13 @@ Items and Categories can also be retrieved via a JSON API.
 
 ## Features
 
+- Sign up system
+- Sign in using Google, Facebook, or your locally created accout
+- Create, Read or Delete categories
+- Create, Read, Update or Delete items
+- Associate items to categories
+- View items created by a user
+
 - JSON API endpoints:
 
     http://localhost:5000/categories/all/json       # returns a json object of all categories
@@ -22,14 +29,19 @@ Items and Categories can also be retrieved via a JSON API.
 ## How to run
 
 * Install [Vagrant](http://vagrantup.com) and [VirtualBox](https://www.virtualbox.org)
+* Navigate to your vagrant directory
+
 * Clone this [repository](https://github.com/younessassassi/fullstack-nanodegree-catalog)
+  within your vagrant directory
+  `git clone https://github.com/younessassassi/fullstack-nanodegree-catalog.git catalog`
+
 * Launch the Vagrant VM
-* login to the linux box and cd to the tournament folder
+* login to the linux box and cd to the vagrant folder
 
 ```sh
 $ vagrant up
 $ vagrant ssh
-$ cd path/to/project/folder
+$ cd /vagrant/catalog    # navigate to the poject directory 'cd vagrant/path/to/project/folder'
 ```
 
 ### Easily find and run the project within the virtual environment
@@ -47,7 +59,7 @@ $ nano .profile
 
 ```sh
 # Virtualenvwrapper setup
-export PROJECT_HOME=$HOME/path/to/project/directory
+export PROJECT_HOME=$HOME/vagrant
 source /usr/local/bin/virtualenvwrapper.sh
 ```
 
@@ -55,14 +67,14 @@ source /usr/local/bin/virtualenvwrapper.sh
 4. Navigate to the project directory
 
 ```sh
-$ cd path/to/project/folder
-$ mkvirtualenv 'project-name'
+$ cd /vagrant/path/to/project/folder
+$ mkvirtualenv catalog
 $ setvirtualenvproject
 ```
 5. Now from any project or directory in the linux you can jump to your project workspace by typing:
 
 ```sh
-$ workon 'project-name'
+$ workon catalog
 ```
 
 6. when you are done deactivate the project by typing:
@@ -100,8 +112,9 @@ As the app uses also Facebook for authentication, the next step you have to obta
 ### Initialize the database
 
 ```sh
-$ python manage.py db init
-$ python manage.py db upgrade
+$ python manage.py db init                  #initialize migration files
+$ python manage.py db migrate -m "initial"  #initialize database with a title
+$ python manage.py db upgrade               #create tables
 ```
 
 ### Run the Application
