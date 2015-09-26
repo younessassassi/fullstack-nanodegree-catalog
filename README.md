@@ -67,7 +67,7 @@ source /usr/local/bin/virtualenvwrapper.sh
 4. Navigate to the project directory
 
 ```sh
-$ cd /vagrant/path/to/project/folder
+$ cd /vagrant/catalog
 $ mkvirtualenv catalog
 $ setvirtualenvproject
 ```
