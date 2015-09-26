@@ -1,14 +1,23 @@
 # Item Catalog Project
 
+## Table of contents
+- [Summary](#summary)
+- [Features](#features)
+- [How to run](#how-to-run)
+- [Extras](#extras)
+- [References](#references)
+
+## Summary
 This application provides a list of categories and items.  Users can register to be able to add, modify and delete items and categories.  Non registered users will be able to view categories and items.
 Items and Categories can also be retrieved via a JSON API.
 
-## Table of contents
+## Features
 
-- [How to run](#how-to-run)
-- [Features](#features)
-- [Extras](#extras)
-- [References](#references)
+- JSON API endpoints:
+
+    http://localhost:5000/categories/all/json       # returns a json object of all categories
+    http://localhost:5000/items/all/json            # returns a json object of all items
+    http://localhost:5000/items/<int:item_id>/json  # returns a json object of a specific item
 
 ## How to run
 
@@ -23,66 +32,7 @@ $ vagrant ssh
 $ cd path/to/project/folder
 ```
 
-### Google Client ID & Secret
-
-As the app uses Google for authentication, the next step you have to obtain a client id and client secret from Google:
-
-1. Go to the [Google Developer Console](https://console.developers.google.com/project).
-2. Create a new project.
-3. Get the App ID & App Secret
-4. Copy the client id and client secret and replace the GOOGLE_LOGIN_CLIENT_ID and GOOGLE_LOGIN_CLIENT_SECRET in config.py file located in catalog/catolog/config.py
-
-### Facebook Client ID & Secret
-
-As the app uses also Facebook for authentication, the next step you have to obtain a client id and client secret from Facebook:
-
-1. Go to the [Facebook Developer](https://developers.facebook.com/apps/).
-2. Create a new app (www - website).
-3. Get the App ID & App Secret
-4. Copy the client id and client secret and replace the FACEBOOK_LOGIN_CLIENT_ID and FACEBOOK_LOGIN_CLIENT_SECRET in config.py file located in catalog/catolog/config.py
-
-### Install the project dependencies
-
-```sh
-$ pip install -r requirements.txt
-```
-
-### Initialize the database
-
-```sh
-$ python manage.py db init
-$ python manage.py db upgrade
-```
-
-### Run the Application
-
-```sh
-$ python manage.py runserver
-```
-
-### Shutdown Vagrant machine
-
-```sh
-$ vagrant halt
-```
-
-### Destroy the Vagrant machine
-
-```sh
-$ vagrant destroy
-```
-
-## Features
-
-- JSON API endpoints:
-        - /categories/all/json
-        - /items/all/json
-        - /items/<int:item_id>/json
-
-
-## Extras
-
-### Easily find and run the project within the virtul environment
+### Easily find and run the project within the virtual environment
 1. login to the linux box
 
 ```sh
@@ -120,6 +70,60 @@ $ workon 'project-name'
 ```sh
 $ deactivate
 ```
+
+### Install the project dependencies
+
+```sh
+$ workon catalog
+$ pip install -r requirements.txt
+```
+
+### Google Client ID & Secret
+
+As the app uses Google for authentication, the next step you have to obtain a client id and client secret from Google:
+
+1. Go to the [Google Developer Console](https://console.developers.google.com/project).
+2. Create a new project.
+3. Get the App ID & App Secret
+4. Copy the client id and client secret and replace the GOOGLE_LOGIN_CLIENT_ID and GOOGLE_LOGIN_CLIENT_SECRET in config.py file located in catalog/catolog/config.py
+
+### Facebook Client ID & Secret
+
+As the app uses also Facebook for authentication, the next step you have to obtain a client id and client secret from Facebook:
+
+1. Go to the [Facebook Developer](https://developers.facebook.com/apps/).
+2. Create a new app (www - website).
+3. Get the App ID & App Secret
+4. Copy the client id and client secret and replace the FACEBOOK_LOGIN_CLIENT_ID and FACEBOOK_LOGIN_CLIENT_SECRET in config.py file located in catalog/catolog/config.py
+
+
+### Initialize the database
+
+```sh
+$ python manage.py db init
+$ python manage.py db upgrade
+```
+
+### Run the Application
+
+```sh
+$ python manage.py runserver
+```
+
+### Shutdown Vagrant machine
+
+```sh
+$ vagrant halt
+```
+
+### Destroy the Vagrant machine
+
+```sh
+$ vagrant destroy
+```
+
+## Extras
+
 
 ### DB management and setup
 
